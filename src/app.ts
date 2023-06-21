@@ -1,9 +1,10 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
+import chalk from 'chalk';
 import routes from './routes';
 
+const PORT = process.env.PORT;
 const app: Express = express();
-const port = process.env.PORT;
 
 app
   .use(morgan('dev'))
@@ -16,6 +17,10 @@ app
   })
   .use('/', routes);
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-});
+let logMessage = `⚡️[server]: Server is listening on port ${PORT}.`;
+if (process.env.NODE_ENV === 'dev') {
+  const url = `http://localhost:${PORT}`;
+  const link = `\u001b]8;;${url}\u001b\\${url}\u001b]8;;\u001b\\`;
+  logMessage += ` | ${chalk.blue(link)}`;
+}
+app.listen(PORT, () => console.log(logMessage));
