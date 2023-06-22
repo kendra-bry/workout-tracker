@@ -25,5 +25,9 @@
 
     /* Completeness */
     "skipLibCheck": true
-  }
+  },
+  "exclude": [
+    "swagger.js",
+    "dist"
+  ]
 }

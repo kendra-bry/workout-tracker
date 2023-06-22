@@ -1,9 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import { getExercises, createExercise } from '../controllers/exercises';
 
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.send('Exercises Route');
-});
+router.get('/', getExercises);
+router.post('/', createExercise);
 
 export default router;
