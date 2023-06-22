@@ -35,13 +35,11 @@ const doc = {
 };
 
 const endpointsFiles = ['./src/app.ts'];
-let outputFile = './src/swagger.json';
+const outputFile = './src/swagger.json';
 
-if (process.env.NODE_ENV === 'PROD') {
+if (process.env.NODE_ENV === 'prod') {
   doc.host = process.env.HOST;
   doc.schemes = ['https'];
-  outputFile = './dist/swagger.json';
 }
-
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
