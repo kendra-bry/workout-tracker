@@ -5,8 +5,8 @@ import workouts from './workouts';
 
 const router = Router();
 
-router.use('/exercise', exercises);
-router.use('/exerciseType', exerciseTypes);
-router.use('/workout', workouts);
+router.use('/exercises', exercises);
+router.use('/exerciseTypes', exerciseTypes);
+router.use('/workouts', workouts);
 
 export default router;
