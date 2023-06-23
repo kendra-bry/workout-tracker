@@ -11,11 +11,11 @@ const doc = {
   produces: ['application/json'],
   definitions: {
     ExerciseType: {
-      $type: 'DUMBBELL ROWS'
+      $type: 'DUMBBELL ROWS',
     },
     Exercise: {
-      type: { $ref: '#/definitions/ExerciseType'},
       $name: 'DUMBBELL ROWS',
+      exerciseType: { $ref: '#/definitions/ExerciseType' },
       startTime: '2023-06-15',
       endTime: '2023-06-15',
       duration: '30 minutes',
@@ -28,12 +28,7 @@ const doc = {
     Workout: {
       $startTime: '2023-06-15',
       $endTime: '2023-06-15',
-      $exercises: {
-        type: 'array',
-        items: {
-          $ref: '#/definitions/Exercise'
-        }
-      }
+      $exercises: [{ $ref: '#/definitions/Exercise' }],
     },
   },
 };
