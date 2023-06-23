@@ -10,10 +10,10 @@ export const ExerciseSchema = Joi.object({
   startTime: Joi.date(),
   endTime: Joi.date(),
   duration: Joi.number(),
-  reps: Joi.number().required(),
-  sets: Joi.number().required(),
-  weight: Joi.number().required(),
-  distance: Joi.number().required(),
+  reps: Joi.number(),
+  sets: Joi.number(),
+  weight: Joi.number(),
+  distance: Joi.number(),
   notes: Joi.string(),
 });
 
