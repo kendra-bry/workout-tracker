@@ -10,8 +10,12 @@ const doc = {
   consumes: ['application/json'],
   produces: ['application/json'],
   definitions: {
+    ExerciseType: {
+      $type: 'DUMBBELL ROWS'
+    },
     Exercise: {
-      $name: 'Dumbbell Rows',
+      type: { $ref: '#/definitions/ExerciseType'},
+      $name: 'DUMBBELL ROWS',
       startTime: '2023-06-15',
       endTime: '2023-06-15',
       duration: '30 minutes',
@@ -22,9 +26,9 @@ const doc = {
       notes: 'This was a tough exercise.',
     },
     Workout: {
-      startTime: '2023-06-15',
-      endTime: '2023-06-15',
-      exercises: {
+      $startTime: '2023-06-15',
+      $endTime: '2023-06-15',
+      $exercises: {
         type: 'array',
         items: {
           $ref: '#/definitions/Exercise'
