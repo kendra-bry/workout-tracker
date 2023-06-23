@@ -21,7 +21,7 @@ export const validate = (schema: Joi.ObjectSchema, customOptions?: Joi.BaseValid
     abortEarly: false,
     debug: process.env.NODE_ENV === 'dev' ? true : false,
     stack: process.env.NODE_ENV === 'dev' ? true : false,
-    stripUnknown: true,
+    stripUnknown: false,
     ...customOptions,
   };
   return (req: Request, res: Response, next: NextFunction) => {

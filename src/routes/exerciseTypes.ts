@@ -13,9 +13,9 @@ import { ExerciseTypeSchema } from '../schemas/schema';
 const router = Router();
 
 router.get('/', getExerciseTypes);
-router.get('/:id', getExerciseType);
-router.post('/', validate(ExerciseTypeSchema), createExerciseType);
-router.put('/:id', validate(ExerciseTypeSchema), updateExerciseType);
-router.delete('/:id', deleteExerciseType);
+// router.get('/:id', getExerciseType);
+// router.post('/', validate(ExerciseTypeSchema), createExerciseType);
+// router.put('/:id', validate(ExerciseTypeSchema), updateExerciseType);
+// router.delete('/:id', deleteExerciseType);
 
 export default router;
