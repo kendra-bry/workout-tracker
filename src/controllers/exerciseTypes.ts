@@ -95,4 +95,11 @@ const deleteExerciseType = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export { getExerciseTypes, createExerciseType, getExerciseType, updateExerciseType, deleteExerciseType };
+// prettier-ignore
+export {
+  createExerciseType,
+  deleteExerciseType,
+  getExerciseType,
+  getExerciseTypes,
+  updateExerciseType,
+};

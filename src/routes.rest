@@ -122,7 +122,7 @@ content-type: application/json
 }
 
 ###
-PUT https://cse341-workout-tracker.onrender.com/exerciseTypes/649522ec4c97636427453f78 HTTP/1.1
+PUT https://cse341-workout-tracker.onrender.com/exerciseTypes/64952546241b0f86313271db HTTP/1.1
 content-type: application/json
 
 {
@@ -130,10 +130,10 @@ content-type: application/json
 }
 
 ###
-GET https://cse341-workout-tracker.onrender.com/exerciseTypes/649522ec4c97636427453f78
+GET https://cse341-workout-tracker.onrender.com/exerciseTypes/64952546241b0f86313271db
 
 ###
-DELETE https://cse341-workout-tracker.onrender.com/exerciseTypes/649522ec4c97636427453f78 HTTP/1.1
+DELETE https://cse341-workout-tracker.onrender.com/exerciseTypes/64952546241b0f86313271db HTTP/1.1
 content-type: application/json
 
 ###

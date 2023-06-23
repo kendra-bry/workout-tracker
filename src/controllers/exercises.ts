@@ -54,7 +54,6 @@ const getExerciseById = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-
 const updateExerciseById = async (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.requestBody  = {
@@ -78,6 +77,7 @@ const updateExerciseById = async (req: Request, res: Response, next: NextFunctio
     res.status(204).send();
   } catch (error) {
     // Error will be handled by the universal error handler.
+    next(error);
   }
 };
 
@@ -89,8 +89,16 @@ const deleteExercise = async (req: Request, res: Response, next: NextFunction) =
       .deleteOne({ _id: new ObjectId(req.params.id) });
     res.status(200).send();
   } catch (error) {
+    // Error will be handled by the universal error handler.
     next(error);
   }
 };
 
-export { getExercises, createExercise, getExerciseById, updateExerciseById, deleteExercise };
+// prettier-ignore
+export {
+  createExercise,
+  deleteExercise,
+  getExercises,
+  getExerciseById,
+  updateExerciseById,
+};

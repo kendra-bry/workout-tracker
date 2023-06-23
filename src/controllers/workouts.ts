@@ -94,5 +94,11 @@ const deleteWorkout = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-
-export { getWorkouts, createWorkout, getWorkoutById, updateWorkout, deleteWorkout };
+// prettier-ignore
+export {
+  createWorkout,
+  deleteWorkout,
+  getWorkouts,
+  getWorkoutById,
+  updateWorkout,
+};

@@ -1,11 +1,12 @@
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { Express } from 'express';
 import morgan from 'morgan';
 import chalk from 'chalk';
-import routes from './routes';
+import mongodb from 'mongodb';
 import swaggerUi from 'swagger-ui-express';
+import routes from './routes';
 import * as swaggerDoc from './swagger.json';
 import { initDb} from './db/connect';
-import mongodb from 'mongodb';
+import { universalErrorHandler, addUniversalResponseHeaders } from './middleware';
 
 const PORT = process.env.PORT;
 const app: Express = express();
@@ -15,26 +16,15 @@ app
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
-  .use((req: Request, res: Response, next: NextFunction) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type', 'application/json');
-    next();
-  })
+  .use(addUniversalResponseHeaders)
   .use('/', routes);
 
 // Universal Error Handler
-app.use((err: any, req: Request, res: Response) => {
-  if (process.env.NODE_ENV === 'dev') console.log({ err });
-  err.statusCode = err.statusCode || 500;
-  err.message = err.message || 'Internal Server Error';
-  res.status(err.statusCode).json({
-    message: err.message,
-  });
-});
+app.use(universalErrorHandler);
 
 initDb((err: any, db: mongodb.MongoClient) => {
   if (err) {
-    console.log(err);
+    console.log({err});
   } else {
     let logMessage = `⚡️[server]: Server is listening on port ${PORT}.`;
     if (process.env.NODE_ENV === 'dev') {
