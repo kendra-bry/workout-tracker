@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import { getDb } from '../db/connect';
 
-const createExercise = async (req: Request, res: Response) => {
+const createExercise = async (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.requestBody  = {
       description: 'Start an exercise.',
@@ -15,11 +15,12 @@ const createExercise = async (req: Request, res: Response) => {
     const response = await getDb().db().collection('exercises').insertOne(req.body);
     res.status(201).send(response);
   } catch (error) {
-    throw error;
+    // Error will be handled by the universal error handler.
+    next(error);
   }
 };
 
-const getExercises = async (req: Request, res: Response) => {
+const getExercises = async (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.responses[200] = {
       schema: [{ $ref: '#/definitions/Exercise' }]
@@ -30,11 +31,12 @@ const getExercises = async (req: Request, res: Response) => {
     let result = await data.toArray();
     res.status(200).send(result);
   } catch (error) {
-    throw error;
+    // Error will be handled by the universal error handler.
+    next(error);
   }
 };
 
-const getExerciseById = async (req: Request, res: Response) => {
+const getExerciseById = async (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.responses[200] = {
       schema: { $ref: '#/definitions/Exercise' }
@@ -47,12 +49,13 @@ const getExerciseById = async (req: Request, res: Response) => {
       .findOne({ _id: new ObjectId(req.params.id) });
     res.status(200).send(exercise);
   } catch (error) {
-    throw error;
+    // Error will be handled by the universal error handler.
+    next(error);
   }
 };
 
 
-const updateExerciseById = async (req: Request, res: Response) => {
+const updateExerciseById = async (req: Request, res: Response, next: NextFunction) => {
   /*
     #swagger.requestBody  = {
       description: 'Update an exercise.',
@@ -74,11 +77,11 @@ const updateExerciseById = async (req: Request, res: Response) => {
       );
     res.status(204).send();
   } catch (error) {
-    throw error;
+    // Error will be handled by the universal error handler.
   }
 };
 
-const deleteExercise = async (req: Request, res: Response) => {
+const deleteExercise = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await getDb()
       .db()
@@ -86,7 +89,7 @@ const deleteExercise = async (req: Request, res: Response) => {
       .deleteOne({ _id: new ObjectId(req.params.id) });
     res.status(200).send();
   } catch (error) {
-    throw error;
+    next(error);
   }
 };
 

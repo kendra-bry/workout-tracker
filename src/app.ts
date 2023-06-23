@@ -22,8 +22,9 @@ app
   })
   .use('/', routes);
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.log({ err });
+// Universal Error Handler
+app.use((err: any, req: Request, res: Response) => {
+  if (process.env.NODE_ENV === 'dev') console.log({ err });
   err.statusCode = err.statusCode || 500;
   err.message = err.message || 'Internal Server Error';
   res.status(err.statusCode).json({
