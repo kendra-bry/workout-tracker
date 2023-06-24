@@ -4,29 +4,6 @@
 GET http://localhost:3200/exerciseTypes
 
 ###
-POST http://localhost:3200/exerciseTypes HTTP/1.1
-content-type: application/json
-
-{
-   "type": "Dumbbell rows"
-}
-
-###
-PUT http://localhost:3200/exerciseTypes/649522ec4c97636427453f78 HTTP/1.1
-content-type: application/json
-
-{
-   "type": "DUMBBELL ROWS"
-}
-
-###
-GET http://localhost:3200/exerciseTypes/649522ec4c97636427453f78
-
-###
-DELETE http://localhost:3200/exerciseTypes/649522ec4c97636427453f78 HTTP/1.1
-content-type: application/json
-
-###
 GET http://localhost:3200/exercises
 
 ###

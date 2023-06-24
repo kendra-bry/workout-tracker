@@ -7,7 +7,6 @@ import {
   dbUpdateExerciseById,
 } from '../dataAccess/exercises';
 import { NextFunction, Request, Response } from 'express';
-import { dbGetExerciseTypeByName, dbInsertExerciseType } from '../dataAccess/exerciseTypes';
 
 const createExercise = async (req: Request, res: Response, next: NextFunction) => {
   /*
@@ -19,16 +18,10 @@ const createExercise = async (req: Request, res: Response, next: NextFunction) =
     }
   */
   try {
-    const exerciseType = await dbGetExerciseTypeByName(req.body.name);
+    req.body.startTime = new Date();
+    const exercise = await dbInsertExercise(req.body);
 
-    if (!exerciseType) {
-      req.body.exerciseType = await dbInsertExerciseType(req.body.name);
-    } else {
-      req.body.exerciseType = exerciseType;
-    }
-
-    const response = await dbInsertExercise(req.body);
-    res.status(201).send(response);
+    res.status(201).send(exercise);
   } catch (error) {
     next(error);
   }
