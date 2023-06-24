@@ -1,9 +1,6 @@
 # LOCALHOST
 
 ###
-GET http://localhost:3200/exerciseTypes
-
-###
 GET http://localhost:3200/exercises
 
 ###
