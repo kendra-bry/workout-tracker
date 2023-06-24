@@ -1,12 +1,7 @@
 import Joi from 'joi';
 
-// export const ExerciseTypeSchema = Joi.object({
-//   type: Joi.string().required(),
-// });
-
 export const ExerciseSchema = Joi.object({
   name: Joi.string().required(),
-  // exerciseType: ExerciseTypeSchema,
   startTime: Joi.date().optional().allow(''),
   endTime: Joi.date().optional().allow(''),
   duration: Joi.string().optional().allow(''),
