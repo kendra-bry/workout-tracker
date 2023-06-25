@@ -7,15 +7,15 @@ import {
   updateExerciseById,
 } from '../controllers/exercises';
 import { Router } from 'express';
-import { validate } from '../middleware';
 import { ExerciseSchema } from '../schemas/schema';
+import { handleErrors, validate } from '../middleware';
 
 const router = Router();
 
-router.get('/', getExercises);
-router.get('/:id', getExerciseById);
-router.post('/', validate(ExerciseSchema), createExercise);
-router.put('/:id', validate(ExerciseSchema), updateExerciseById);
-router.delete('/:id', deleteExercise);
+router.get('/', handleErrors(getExercises));
+router.get('/:id', handleErrors(getExerciseById));
+router.post('/', validate(ExerciseSchema), handleErrors(createExercise));
+router.put('/:id', validate(ExerciseSchema), handleErrors(updateExerciseById));
+router.delete('/:id', handleErrors(deleteExercise));
 
 export default router;

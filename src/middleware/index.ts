@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 
+export const handleErrors = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) => (req: Request, res: Response, next: NextFunction) => Promise.resolve(fn(req, res, next)).catch(next);
+
 export const universalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   if (process.env.NODE_ENV === 'dev') console.log({ err });
   err.statusCode = err.statusCode || 500;
@@ -8,6 +10,10 @@ export const universalErrorHandler = (err: any, req: Request, res: Response, nex
   res.status(err.statusCode).json({
     message: err.message,
   });
+};
+
+export const fourOhFour = (err: any, req: Request, res: Response, next: NextFunction) => {
+  next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
 };
 
 export const addUniversalResponseHeaders = (req: Request, res: Response, next: NextFunction) => {

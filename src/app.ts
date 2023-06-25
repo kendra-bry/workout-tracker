@@ -5,8 +5,8 @@ import mongodb from 'mongodb';
 import swaggerUi from 'swagger-ui-express';
 import routes from './routes';
 import * as swaggerDoc from './swagger.json';
-import { initDb} from './db/connect';
-import { universalErrorHandler, addUniversalResponseHeaders } from './middleware';
+import { initDb } from './db/connect';
+import { universalErrorHandler, addUniversalResponseHeaders, fourOhFour } from './middleware';
 
 const PORT = process.env.PORT;
 const app: Express = express();
@@ -17,14 +17,13 @@ app
   .use(express.urlencoded({ extended: true }))
   .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
   .use(addUniversalResponseHeaders)
-  .use('/', routes);
-
-// Universal Error Handler
-app.use(universalErrorHandler);
+  .use('/', routes)
+  .use(fourOhFour)
+  .use(universalErrorHandler);
 
 initDb((err: any, db: mongodb.MongoClient) => {
   if (err) {
-    console.log({err});
+    console.log({ err });
   } else {
     let logMessage = `⚡️[server]: Server is listening on port ${PORT}.`;
     if (process.env.NODE_ENV === 'dev') {
