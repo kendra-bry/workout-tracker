@@ -18,4 +18,13 @@ router.post('/', validate(WorkoutSchema), handleErrors(createWorkout));
 router.put('/:id', validate(WorkoutSchema), handleErrors(updateWorkout));
 router.delete('/:id', handleErrors(deleteWorkout));
 
+// Swagger-autogen breaks when my controllers are wrapped in a higher order function.
+// I'm keeping these routes here just for swagger.json creation.
+
+// router.get('/', getWorkouts);
+// router.get('/:id', getWorkoutById);
+// router.post('/', validate(WorkoutSchema), createWorkout);
+// router.put('/:id', validate(WorkoutSchema), updateWorkout);
+// router.delete('/:id', deleteWorkout);
+
 export default router;

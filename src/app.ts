@@ -9,7 +9,8 @@ import morgan from 'morgan';
 import chalk from 'chalk';
 import swaggerUi from 'swagger-ui-express';
 import routes from './routes';
-import * as swaggerDoc from './swagger.json';
+import * as swaggerDocProd from './swagger.json';
+import * as swaggerDocDev from './swagger-dev.json';
 import connectDB from './db/db';
 import passport from 'passport';
 import session from 'express-session';
@@ -19,6 +20,11 @@ import './passport';
 
 const PORT = process.env.PORT;
 const app: Express = express();
+
+let swaggerDoc = swaggerDocProd;
+if (process.env.NODE_ENV === 'dev') {
+  swaggerDoc = swaggerDocDev;
+}
 
 (async () => {
   await connectDB();
