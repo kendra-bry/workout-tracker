@@ -10,6 +10,6 @@ router.get(
   passport.authenticate('github')
 );
 
-router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/' }), login);
+router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/', failureMessage: true }), login);
 
 export default router;
