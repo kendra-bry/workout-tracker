@@ -33,12 +33,10 @@ export default passport.use(
 );
 
 passport.serializeUser((user: any, done) => {
-  console.log('Hit serialize User');
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log('Hit deserialize User');
   try {
     const user = await User.findById(id);
     done(null, user);

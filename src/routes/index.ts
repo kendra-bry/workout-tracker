@@ -16,6 +16,7 @@ router.get('/logout', logout);
 
 router.use('/auth', auth);
 
+// Ensure user is authenticated on the following routes.
 router.use(ensureAuth);
 
 router.use('/exercises', exercises);
