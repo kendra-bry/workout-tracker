@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     "target": "es2016",
     "lib": ["es6"],
 
@@ -24,7 +23,8 @@
     "noImplicitAny": true,
 
     /* Completeness */
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": true
   },
   "exclude": [
     "swagger.js",
