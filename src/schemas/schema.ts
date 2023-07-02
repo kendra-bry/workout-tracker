@@ -15,8 +15,5 @@ export const ExerciseSchema = Joi.object({
 export const WorkoutSchema = Joi.object({
   startTime: Joi.date().optional().allow(''),
   endTime: Joi.date().optional().allow(''),
-  exercises: Joi.array()
-    .items(Joi.object({ exercise_id: Joi.string().optional().allow('') }))
-    .optional()
-    .allow(''),
+  exercises: Joi.array().items(Joi.string()).optional().allow(''),
 });

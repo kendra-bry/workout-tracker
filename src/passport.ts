@@ -2,36 +2,48 @@ import passport from 'passport';
 import { Strategy } from 'passport-github';
 import User, { IUser } from './models/User';
 
+let redirectUrl = `${process.env.BASE_URL}:${process.env.PORT}${process.env.GITHUB_CALLBACK_URL}`;
+
+if (process.env.NODE_ENV === 'prod') {
+  redirectUrl = `${process.env.BASE_URL}${process.env.GITHUB_CALLBACK_URL}`;
+}
+
 export default passport.use(
   new Strategy(
     {
       clientID: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      callbackURL: 'http://127.0.0.1:3000/auth/github/callback',
+      callbackURL: redirectUrl,
     },
-    // function (accessToken, refreshToken, profile, cb) {
-    //   User.findOrCreate({ githubId: profile.id }, function (err, user) {
-    //     return cb(err, user);
-    //   });
-    // }
     async (accessToken, refreshToken, profile, done) => {
-      console.log({ profile });
-      // const newUser = {
-      //   githubId: profile
-      // }
-      // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      //   return cb(err, user);
-      // });
+      const newUser = {
+        githubId: profile.id,
+        displayName: profile.displayName,
+        oAuthProvider: profile.provider,
+      } as IUser;
+
+      try {
+        const user = await User.findOrCreate(newUser);
+        done(null, user);
+      } catch (error) {
+        console.log({ failedOAuthLogin: error });
+      }
     }
   )
 );
 
 passport.serializeUser((user: any, done) => {
+  console.log('Hit serialize User');
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err: any, user: Express.User) => {
-    done(err, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  console.log('Hit deserialize User');
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    console.log({ deserializeUser: err });
+    done(err);
+  }
 });
