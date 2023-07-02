@@ -1,41 +1,21 @@
-import { ObjectId } from 'mongodb';
-import { getDb } from '../db/connect';
-
-const EXERCISES = 'exercises';
+import Exercise, { IExercise } from '../models/Exercise';
 
 export const dbInsertExercise = async (exercise: any) => {
-  return await getDb().db().collection(EXERCISES).insertOne(exercise);
+  return await Exercise.findOrCreate(exercise);
 };
 
 export const dbGetExercises = async () => {
-  const data = await getDb().db().collection(EXERCISES).find();
-  let result = await data.toArray();
-  return result;
+  return await Exercise.find();
 };
 
 export const dbGetExerciseById = async (id: string) => {
-  return await getDb()
-    .db()
-    .collection(EXERCISES)
-    .findOne({ _id: new ObjectId(id) });
+  return await Exercise.findById(id);
 };
 
-export const dbUpdateExerciseById = async (id: string, exercise: any) => {
-  return getDb()
-    .db()
-    .collection(EXERCISES)
-    .updateOne(
-      {
-        _id: new ObjectId(id),
-      },
-      { $set: exercise },
-      { upsert: true }
-    );
-}
+export const dbUpdateExerciseById = async (id: string, exercise: IExercise) => {
+  return await Exercise.updateOne({ _id: id }, exercise, { upsert: true });
+};
 
 export const dbDeleteExerciseById = async (id: string) => {
-  getDb()
-    .db()
-    .collection(EXERCISES)
-    .deleteOne({ _id: new ObjectId(id) });
-}
+  return await Exercise.deleteOne({ _id: id });
+};

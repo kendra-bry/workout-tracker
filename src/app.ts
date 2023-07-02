@@ -10,8 +10,6 @@ import chalk from 'chalk';
 import swaggerUi from 'swagger-ui-express';
 import routes from './routes';
 import * as swaggerDoc from './swagger.json';
-import { initDb } from './db/connect';
-import mongodb from 'mongodb';
 import connectDB from './db/db';
 import passport from 'passport';
 import session from 'express-session';
@@ -30,7 +28,7 @@ app
       secret: process.env.SESSION_SECRET!,
       resave: false,
       saveUninitialized: false,
-      // cookie: { secure: true }
+      cookie: { secure: true }
     })
   )
   .use(passport.initialize())
@@ -50,15 +48,7 @@ const createServerMessage = () => {
   return logMessage;
 };
 
-initDb((err: any, db: mongodb.MongoClient) => {
-  if (err) {
-    console.log({ err });
-  } else {
-    app.listen(PORT, () => console.log(createServerMessage()));
-  }
-});
-
-// (async () => {
-//   await connectDB();
-//   app.listen(PORT, () => console.log(createServerMessage()));
-// })();
+(async () => {
+  await connectDB();
+  app.listen(PORT, () => console.log(createServerMessage()));
+})();

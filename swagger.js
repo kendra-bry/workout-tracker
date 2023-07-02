@@ -24,7 +24,7 @@ const doc = {
     Workout: {
       startTime: '2023-06-24T01:33:43.197Z',
       endTime: '2023-06-24T01:45:43.197Z',
-      $exercises: [{ exercise_id: '647ccbb8813669570a51f2e9' }],
+      $exercises: [{ $ref: '#/definitions/Exercise' }],
     },
   },
 };
