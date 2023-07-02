@@ -18,7 +18,9 @@ router.post('/', validate(ExerciseSchema), handleErrors(createExercise));
 router.put('/:id', validate(ExerciseSchema), handleErrors(updateExerciseById));
 router.delete('/:id', handleErrors(deleteExercise));
 
-// Keeping these here for when I need to regenerate the swagger doc. Swagger-autogen breaks when my controllers are wrapped in middleware
+// Swagger-autogen breaks when my controllers are wrapped in a higher order function.
+// I'm keeping these routes here just for swagger.json creation.
+
 // router.get('/', getExercises);
 // router.get('/:id', getExerciseById);
 // router.post('/', validate(ExerciseSchema), createExercise);

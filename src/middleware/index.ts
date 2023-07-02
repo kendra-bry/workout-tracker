@@ -45,7 +45,6 @@ export const validate = (schema: Joi.ObjectSchema, customOptions?: Joi.BaseValid
 };
 
 export const ensureAuth = (req: Request, res: Response, next: NextFunction) => {
-  console.log({ AUTHENTICATED: req.isAuthenticated() });
   if (req.isAuthenticated()) {
     return next();
   } else {
