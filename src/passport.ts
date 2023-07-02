@@ -2,12 +2,18 @@ import passport from 'passport';
 import { Strategy } from 'passport-github';
 import User, { IUser } from './models/User';
 
+let redirect_uri = `${process.env.BASE_URL}:${process.env.PORT}${process.env.GITHUB_CALLBACK_URL}`;
+
+if (process.env.NODE_ENV === 'prod') {
+  redirect_uri = `${process.env.BASE_URL}${process.env.GITHUB_CALLBACK_URL}`;
+}
+
 export default passport.use(
   new Strategy(
     {
       clientID: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      callbackURL: `${process.env.BASE_URL}:${process.env.PORT}${process.env.GITHUB_CALLBACK_URL}`,
+      callbackURL: redirect_uri,
     },
     async (accessToken, refreshToken, profile, done) => {
       const newUser = {
