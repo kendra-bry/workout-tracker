@@ -35,12 +35,16 @@ export default passport.use(
 );
 
 passport.serializeUser((user: any, done) => {
+  console.log('Serialize User Being called');
+  console.log({ user });
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
+  console.log('Calling deserialize user!');
   try {
     const user = await User.findById(id);
+    console.log({ user });
     done(null, user);
   } catch (err) {
     console.log({ deserializeUser: err });

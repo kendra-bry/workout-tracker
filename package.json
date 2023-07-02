@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node -r dotenv/config dist/app.js",
-    "dev": "npm run swagger && npx nodemon",
+    "dev": "npx nodemon",
     "swagger": "node -r dotenv/config ./swagger.js"
   },
   "keywords": [],
