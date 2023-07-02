@@ -1,15 +1,15 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import passport from 'passport';
+import { login } from '../controllers/auth';
 
 const router = Router();
 
-router.get('/github',
-// #swagger.ignore = true
-passport.authenticate('github'));
-
-router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req: Request, res: Response) => {
+router.get(
+  '/github',
   // #swagger.ignore = true
-  res.redirect('/api-docs');
-});
+  passport.authenticate('github')
+);
+
+router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/', session: false }), login);
 
 export default router;
