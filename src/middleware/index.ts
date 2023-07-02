@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 
-export const handleErrors = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) => (req: Request, res: Response, next: NextFunction) => Promise.resolve(fn(req, res, next)).catch(next);
+export const handleErrors = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) => (req: Request, res: Response, next: NextFunction) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 export const universalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   if (process.env.NODE_ENV === 'dev') console.log({ err });
@@ -41,4 +42,13 @@ export const validate = (schema: Joi.ObjectSchema, customOptions?: Joi.BaseValid
     }
     next();
   };
+};
+
+export const ensureAuth = (req: Request, res: Response, next: NextFunction) => {
+  console.log({ AUTHENTICATED: req.isAuthenticated() });
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.status(401).send({ message: 'Unauthorized' });
+  }
 };
