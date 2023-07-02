@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'dev') {
         secret: process.env.SESSION_SECRET!,
         resave: false,
         saveUninitialized: false,
-        cookie: { secure: process.env.NODE_ENV === 'dev' ? false : true },
+        // cookie: { secure: process.env.NODE_ENV === 'dev' ? false : true },
         store: MongoStore.create({ client: mongoose.connection.getClient() }),
       })
     )
